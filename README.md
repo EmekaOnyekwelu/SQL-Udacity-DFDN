@@ -43,7 +43,7 @@ ON
 
 ==question1 what genre drives sales==
 
-/* query the genre that drives the sales */
+/* query1 the genre that drives the sales */
 SELECT SUM(InvoiceLine.UnitPrice * InvoiceLine.Quantity) AS 'Track Sales', Genre.Name AS 'Genre Name'
 FROM InvoiceLine
 JOIN Track
@@ -54,8 +54,8 @@ GROUP BY 2
 ORDER BY 1 desc
 
 
-/* query the sales contribution by country (top 10) */
-SELECT SUM(InvoiceLine.UnitPrice * InvoiceLine.Quantity) AS 'Track Sales', Invoice.BillingCountry
+/* query2 the sales contribution by country (top 10) */
+SELECT SUM(InvoiceLine.UnitPrice * InvoiceLine.Quantity) AS 'Track Sales Revenue', Invoice.BillingCountry
 FROM InvoiceLine
 JOIN Invoice
 ON InvoiceLine.InvoiceId = Invoice.InvoiceId
@@ -63,7 +63,7 @@ GROUP BY 2
 ORDER BY 1 desc
 
 
-/* query the type of genre that drives the sales in topmost country */
+/* query3 the type of genre that drives the sales in topmost country */
 SELECT ROUND (SUM(InvoiceLine.UnitPrice * InvoiceLine.Quantity),0) AS 'Sales_USA Billing Country', Genre.Name AS 'Genre Name'
 FROM InvoiceLine
 JOIN Invoice
@@ -77,7 +77,7 @@ GROUP BY 2
 ORDER BY 1 desc
 LIMIT 10
 
-/* query the sales evolution of Rock genre from USA customers */
+/* query4 the sales evolution of Rock genre from USA customers */
 SELECT CAST(Invoice.InvoiceDate AS year) AS 'Sales Period (Year)', ROUND (SUM(InvoiceLine.UnitPrice * InvoiceLine.Quantity),0) AS 'USA Customer Spend (Rock Genre)'
 FROM Invoice
 JOIN InvoiceLine

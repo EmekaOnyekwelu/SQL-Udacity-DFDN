@@ -54,9 +54,6 @@ GROUP BY 2
 ORDER BY 1 desc
 
 
-
-==question2 which sales employee has made the most sales?==
-
 /* query the sales contribution by country (top 10) */
 SELECT SUM(InvoiceLine.UnitPrice * InvoiceLine.Quantity) AS 'Track Sales', Invoice.BillingCountry
 FROM InvoiceLine
@@ -65,6 +62,17 @@ ON InvoiceLine.InvoiceId = Invoice.InvoiceId
 GROUP BY 2
 ORDER BY 1 desc
 
-==question3  what's the best selling genre? == 
+/* query the type of genre that drives the sales in topmost country */
+SELECT ROUND (SUM(InvoiceLine.UnitPrice * InvoiceLine.Quantity),0) AS 'Track Sales', Invoice.BillingCountry, Genre.Name AS 'Genre Name'
+FROM InvoiceLine
+JOIN Invoice
+ON InvoiceLine.InvoiceId = Invoice.InvoiceId
+JOIN Track
+ON InvoiceLine.TrackId = Track.TrackId
+JOIN Genre
+ON Genre.GenreId = Track.GenreId
+GROUP BY 2
+ORDER BY 1 desc
+LIMIT 10
 
 

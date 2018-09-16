@@ -62,7 +62,7 @@ ON InvoiceLine.InvoiceId = Invoice.InvoiceId
 GROUP BY 2
 ORDER BY 1 desc
 
-/* query the type of genre that drives the sales in topmost country */
+
 /* query the type of genre that drives the sales in topmost country */
 SELECT ROUND (SUM(InvoiceLine.UnitPrice * InvoiceLine.Quantity),0) AS 'Sales_USA Billing Country', Genre.Name AS 'Genre Name'
 FROM InvoiceLine
@@ -77,7 +77,17 @@ GROUP BY 2
 ORDER BY 1 desc
 LIMIT 10
 
-
+/* query the sales evolution of Rock genre from USA customers */
+SELECT CAST(Invoice.InvoiceDate AS year) AS 'Sales Period (Year)', ROUND (SUM(InvoiceLine.UnitPrice * InvoiceLine.Quantity),0) AS 'USA Customer Spend (Rock Genre)'
+FROM Invoice
+JOIN InvoiceLine
+ON InvoiceLine.InvoiceId = Invoice.InvoiceId
+JOIN Track
+ON InvoiceLine.TrackId = Track.TrackId
+JOIN Genre
+ON Genre.GenreId = Track.GenreId
+WHERE Invoice.BillingCountry = 'USA' AND Genre.Name = 'Rock'
+GROUP BY 1
 
 
 

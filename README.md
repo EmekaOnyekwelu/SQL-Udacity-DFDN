@@ -57,6 +57,14 @@ ORDER BY 1 desc
 
 ==question2 which sales employee has made the most sales?==
 
+/* query the sales contribution by country (top 10) */
+SELECT SUM(InvoiceLine.UnitPrice * InvoiceLine.Quantity) AS 'Track Sales', Invoice.BillingCountry
+FROM InvoiceLine
+JOIN Invoice
+ON InvoiceLine.InvoiceId = Invoice.InvoiceId
+GROUP BY 2
+ORDER BY 1 desc
+
 ==question3  what's the best selling genre? == 
 
 

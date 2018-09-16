@@ -63,7 +63,8 @@ GROUP BY 2
 ORDER BY 1 desc
 
 /* query the type of genre that drives the sales in topmost country */
-SELECT ROUND (SUM(InvoiceLine.UnitPrice * InvoiceLine.Quantity),0) AS 'Track Sales', Invoice.BillingCountry, Genre.Name AS 'Genre Name'
+/* query the type of genre that drives the sales in topmost country */
+SELECT ROUND (SUM(InvoiceLine.UnitPrice * InvoiceLine.Quantity),0) AS 'Sales_USA Billing Country', Genre.Name AS 'Genre Name'
 FROM InvoiceLine
 JOIN Invoice
 ON InvoiceLine.InvoiceId = Invoice.InvoiceId
@@ -71,8 +72,12 @@ JOIN Track
 ON InvoiceLine.TrackId = Track.TrackId
 JOIN Genre
 ON Genre.GenreId = Track.GenreId
+WHERE Invoice.BillingCountry = 'USA'
 GROUP BY 2
 ORDER BY 1 desc
 LIMIT 10
+
+
+
 
 
